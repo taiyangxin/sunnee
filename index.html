@@ -44,7 +44,7 @@ function getDataPointsFromCSV(csv) {
   for(i=0;i<=durationMin/(5*60*1000);i++) {
     times.push(current - durationMin + i*5*60*1000);
   }
-  for (var i = 1; i <= csvLines.length; i++) {
+  for (var i = 1; i < csvLines.length; i++) {
     dataPoints.push([])
     if (csvLines[i].length > 0) {
       points = csvLines[i].split(",");
