@@ -39,7 +39,7 @@ function getDataPointsFromCSV(csv) {
   var current = parseInt(csvLines[0]);
   var durationMin = 5*60*60*1000;
   var times=[];
-  for(i=0;i<=durationMin/(5*60*1000);i++) {
+  for(var i=0;i<=durationMin/(5*60*1000);i++) {
     times.push(current - durationMin + i*5*60*1000);
   }
   for (var i = 1; i < csvLines.length; i++) {
