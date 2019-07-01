@@ -21,15 +21,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
     type: "line",    
     xValueType: "dateTime",
     toolTipContent: "{y} metric tons",
-    dataPoints: dataPoints[0]
-  },{
-    type: "line",    
-    xValueType: "dateTime",
-    toolTipContent: "{y} metric tons",
-    dataPoints: dataPoints[1]
-  }
-  ]
-});
+    dataPoints: dataPoints
+  });
  
 $.get("./files/sample.csv", getDataPointsFromCSV);
  
@@ -45,20 +38,13 @@ function getDataPointsFromCSV(csv) {
     times.push(current - durationMin + i*5*60*1000);
   }
   for (var i = 1; i < csvLines.length; i++) {
-    dataPoints.push([{
+    dataPoints.push({
           x: times[0],
           y: 12
         },{
           x: times[1],
           y: 13232
-        }]);
-   dataPoints.push([{
-          x: times[0],
-          y: 222
-        },{
-          x: times[1],
-          y: 14342
-        }]);
+        });
   }
   chart.render();
 }
