@@ -46,7 +46,7 @@ function getDataPointsFromCSV(csv) {
     dataPoints.push([])
     if (csvLines[i].length > 0) {
       points = csvLines[i].split(",");
-      count = Math.min(times.length, points.length-1);
+      var count = Math.min(times.length, points.length-1);
       for (var j = 0; j<count; j++) {
         dataPoints[i-1].push({
           label: 'dfdfd',
