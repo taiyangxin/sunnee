@@ -18,33 +18,33 @@ var chart = new CanvasJS.Chart("chartContainer", {
     includeZero: false
   },
   data: [{
-    type: "line",    
-    xValueType: "dateTime",
+    type: "line",
     toolTipContent: "{y} metric tons",
     dataPoints: dataPoints
-  });
+  }]
+});
  
 $.get("./files/sample.csv", getDataPointsFromCSV);
  
 //CSV Format
 //Year,Volume
 function getDataPointsFromCSV(csv) {
-  var points;
-  var csvLines = csv.split(/[\r?\n|\r|\n]+/);
   current = parseInt(csvLines[0]);
   durationMin = 5*60*60*1000;
   times=[];
   for(i=0;i<=durationMin/(5*60*1000);i++) {
     times.push(current - durationMin + i*5*60*1000);
   }
+  var points;
+  var csvLines = csv.split(/[\r?\n|\r|\n]+/);
   for (var i = 1; i < csvLines.length; i++) {
-    dataPoints.push({
-          x: times[0],
-          y: 12
-        },{
-          x: times[1],
-          y: 13232
-        });
+    if (csvLines[i].length > 0) {
+      points = csvLines[i].split(",");
+      dataPoints.push({
+        label: points[0],
+        y: parseFloat(points[1])
+      });
+    }
   }
   chart.render();
 }
@@ -57,4 +57,4 @@ function getDataPointsFromCSV(csv) {
 <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-</html>            
+</html>     
