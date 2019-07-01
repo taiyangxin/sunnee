@@ -45,17 +45,20 @@ function getDataPointsFromCSV(csv) {
     times.push(current - durationMin + i*5*60*1000);
   }
   for (var i = 1; i < csvLines.length; i++) {
-    dataPoints.push([])
-    if (csvLines[i].length > 0) {
-      points = csvLines[i].split(",");
-      count = Math.min(times.length, points.length-1);
-      for (var j = 0; j<count; j++) {
-        dataPoints[i-1].push({
-          x: times[times.length - count + j],
-          y: parseInt(points[points.length - count + j])
-        });  
-      }      
-    }
+    dataPoints.push([{
+          x: times[0],
+          y: 12
+        },{
+          x: times[1],
+          y: 13232
+        }])
+   dataPoints.push([{
+          x: times[0],
+          y: 222
+        },{
+          x: times[1],
+          y: 14342
+        }])
   }
   chart.render();
 }
