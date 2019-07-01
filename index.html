@@ -18,10 +18,17 @@ var chart = new CanvasJS.Chart("chartContainer", {
     includeZero: false
   },
   data: [{
-    type: "line",
+    type: "line",    
+    xValueType: "dateTime",
     toolTipContent: "{y} metric tons",
-    dataPoints: dataPoints
-  }]
+    dataPoints: dataPoints[0]
+  },{
+    type: "line",    
+    xValueType: "dateTime",
+    toolTipContent: "{y} metric tons",
+    dataPoints: dataPoints[1]
+  }
+  ]
 });
  
 $.get("./files/sample.csv", getDataPointsFromCSV);
@@ -31,13 +38,23 @@ $.get("./files/sample.csv", getDataPointsFromCSV);
 function getDataPointsFromCSV(csv) {
   var points;
   var csvLines = csv.split(/[\r?\n|\r|\n]+/);
-  for (var i = 1; i < csvLines.length; i++) {
+  var current = parseInt(csvLines[0]);
+  var durationMin = 5*60*60*1000;
+  var times=[];
+  for(i=0;i<=durationMin/(5*60*1000);i++) {
+    times.push(current - durationMin + i*5*60*1000);
+  }
+  for (var i = 1; i <= csvLines.length; i++) {
+    dataPoints.push([])
     if (csvLines[i].length > 0) {
       points = csvLines[i].split(",");
-      dataPoints.push({
-        label: points[0],
-        y: parseFloat(points[1])
-      });
+      count = Math.min(times.length, points.length-1);
+      for (var j = 0; j<count; j++) {
+        dataPoints[i-1].push({
+          x: times[times.length - count + j],
+          y: parseInt(points[points.length - count + j])
+        });  
+      }      
     }
   }
   chart.render();
@@ -51,4 +68,4 @@ function getDataPointsFromCSV(csv) {
 <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-</html>     
+</html>            
