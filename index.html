@@ -29,12 +29,6 @@ $.get("./files/sample.csv", getDataPointsFromCSV);
 //CSV Format
 //Year,Volume
 function getDataPointsFromCSV(csv) {
-  current = parseInt(csvLines[0]);
-  durationMin = 5*60*60*1000;
-  times=[];
-  for(i=0;i<=durationMin/(5*60*1000);i++) {
-    times.push(current - durationMin + i*5*60*1000);
-  }
   var points;
   var csvLines = csv.split(/[\r?\n|\r|\n]+/);
   for (var i = 1; i < csvLines.length; i++) {
