@@ -1,27 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>    
-  </head>
-  <body>
-    <input type="button" id='script' name="scriptbutton" value=" Run Script " onclick="goPython()">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-    <script>
-        function goPython(){
-          $.ajax({
-            method: "GET",
-            url: "./files/wind2.py",
-            dataType: "text",
-            success: function(response){
-               output = response;
-               alert(output);
-            }
-          }).done(function(data){
-              console.log(data);
-              alert(data);
-          });
-        }
-    </script>
-  </body>
+ <body>
+  <form action="wind3.py" method="get">
+   Enter two numbers to add:<br />
+   First Number: <input type="text" name="num1" /><br />
+   Second Number: <input type="text" name="num2" /><br />
+   <input type="submit" value="Add" />
+  </form>
+ </body>
 </html>
