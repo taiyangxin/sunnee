@@ -10,11 +10,14 @@
     <script>
         function goPython(){
           $.ajax({
-                  url: "./files/wind2.py",
-                  success: function(response){
-                     output = response;
-                     alert(output);
-                  }
+            method: "GET",
+            url: "./files/wind2.py",
+            data: {"place" : value},
+            dataType: "text",
+            success: function(response){
+               output = response;
+               alert(output);
+            }
           }).done(function(data){
               console.log(data);
               alert(data);
