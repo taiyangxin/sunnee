@@ -1,69 +1,21 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript">
-window.onload = function() { 
- 
-var dataPoints = [];
- 
-var chart = new CanvasJS.Chart("chartContainer", {
-  animationEnabled: true,
-  exportEnabled: true,
-  title: {
-    text: "Tuna Production"
-  },
-  axisY: {
-    title: "in metric tons",
-    includeZero: false
-  },
-  data: [{
-    type: "line",    
-    toolTipContent: "{y} metric tons",
-    dataPoints: dataPoints[0]
-  },{
-    type: "line",    
-    toolTipContent: "{y} metric tons",
-    dataPoints: dataPoints[1]
-  }
-  ]
-});
- 
-$.get("./files/sample.csv", getDataPointsFromCSV);
- 
-//CSV Format
-//Year,Volume
-function getDataPointsFromCSV(csv) {
-  var points;
-  var csvLines = csv.split(/[\r?\n|\r|\n]+/);
-  var current = parseInt(csvLines[0]);
-  var durationMin = 5*60*60*1000;
-  var times=[];
-  for(var i=0;i<=durationMin/(5*60*1000);i++) {
-    times.push(current - durationMin + i*5*60*1000);
-  }
-  for (var i = 1; i < csvLines.length; i++) {
-    dataPoints.push([])
-    if (csvLines[i].length > 0) {
-      points = csvLines[i].split(",");
-      var count = Math.min(times.length, points.length-1);
-      for (var j = 0; j<count; j++) {
-        dataPoints[i-1].push({
-          x: j,
-          y: parseInt(points[points.length - count + j])
-        });  
-      }      
-    }
-  }
-  chart.render();
-}
- 
-}
-</script>
-</head>
-<body>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</body>
-</html>            
+  <head>    
+  </head>
+  <body>
+    <input type="button" id='script' name="scriptbutton" value=" Run Script " onclick="goPython()">
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script>
+        function goPython(){
+            $.ajax({
+              url: "./files/wind2.py",
+             context: document.body
+            }).done(function() {
+             alert('finished python script');;
+            });
+        }
+    </script>
+  </body>
+</html>
