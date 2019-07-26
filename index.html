@@ -9,12 +9,17 @@
 
     <script>
         function goPython(){
-            $.ajax({
-              url: "./files/wind2.py",
-             context: document.body
-            }).done(function() {
-             alert('finished python script');;
-            });
+          $.ajax({
+                  type: 'POST',
+                  url: "./files/wind2.py",
+                  success: function(response){
+                     output = response;
+                     alert(output);
+                  }
+          }).done(function(data){
+              console.log(data);
+              alert(data);
+          });
         }
     </script>
   </body>
